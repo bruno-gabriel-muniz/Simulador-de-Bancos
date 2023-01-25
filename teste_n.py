@@ -6,16 +6,26 @@ def cria_cont(num,deposito=0):
     erro=0
     #verificar se o número de entrada do úsuario tem 6 digitos
     if 100000<=num <=999999:
-        #verificar se o número não bate com os números já cadastrados epartir da função cont
-        if conta_cadastro.count(num)==0:
+        #criando uma variavel para ver se a conta está disponivel
+        veri=0
+        #criando uma lista auxiliar para usar no for loop de verificação
+        conta_cadastro_a=conta_cadastro.copy()
+        #criando um for loop para percorre todos os valores da lista de cadastro
+        for t in range(len(conta_cadastro_a)):
+            #verificar se o número não bate com os números já cadastrados
+            if conta_cadastro[t][0] == num:
+                # se sim verificando que uma conta já existe
+                veri=1
+        #caso a onta esteja disponivel
+        if veri ==0:
             #adicionar o valor na lista e perguntar o valor do deposito
             conta_cadastro.append([num,deposito])
             #devolver o valor de aceito
             erro=1
             return erro 
-        #caso não
+        #caso a conta não esteja disponivel
         else:
-            #se sim devolver um valor de erro
+            print("conta já existente tente novamente.")
             return erro
     #caso não
     else:
@@ -80,50 +90,53 @@ def altera_cont(num):
         print("erro conta não encontrada")
         #mostra mensagem de erro e sair do programa
 #criar a lista global dos números e valores das contas  
-conta_cadastro=[]
-#contar quantos clientes foram atendidos
-cont_clientes=0
-#verificar se é para o programa ainde ser rodado
-prosseguir=1
-while prosseguir:
-    cont_clientes+=1
-    #criar variavel de verificação de erro
-    erro=1
-    #criar ciclo while para a escolha do cliente poder ser refeita caso a entrada seja considerada invalida
-    while erro==1:
-        #perguntar se o cliente quer abrir, verificar uma conta ou sair do programa (0 para verificar uma conta) (1 para sair) (2 para abrir uma conta)
-        escolha_cli=int(input("esolha se você vai querer alterar uma conta(0), sair do programa(1) ou criar uma nova conta(2) digitando um destes números: "))
-        #verificar se o usuário digitou 2 para criar uma conta em um if
-        if escolha_cli==2:
-            #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
-            erro=0
-            #caso ele tenha decidido criar uma conta rodar o programa de abrimento de contas
-            #criar v para verificar o sucesso do while loop
-            v=0
-            #entrar num wihile loop para pedir os seis digitos para o usuário 
-            while not v:
-                #pedir para o usuário abrir uma conta com 6 digitos
-                v=cria_cont(int(input("escolha o número da nova conta que esteja entre 100000 e 999999: ")), int(input("caso querira fazer deposito na nova conta digite o valor se não você pode só digitar 0: ")))
-        #verificar se o usuário digitou 0 para alterar uma conta em um elif
-        elif escolha_cli==0:
-            #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
-            erro=0
-            #perguntar o número da conta do cliente
-            cont_cli_atual=int(input("digite o número da sua conta: "))
-            #mostrar o saldo da conta do cliente e perguntar sobre alterações usando a função altera_cont
-            altera_cont(cont_cli_atual)
-            #perguntar se o cliente quer realizar um deposito a retirara parate do dinheiro
-            print("está ferramenta ainda está em desenvolvimento.")    
-        #verificar se o usuário decidio fechar o programa com um elif
-        elif escolha_cli==1:
-            #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
-            erro=0
-            #caso ele tenha decidido sair mostra uma mensagem de agradecimento
-            print("Obrigado pela a sua paciencia. Fim do programa.")    
-        #caso nenhuma das alternativas anteriores ter sido comprida dar uma mensagem de erro e repetir o programa
-        else:
-            #exibir mensagem de erro
-            print("nenhuma escolha reconhecida tente novamente.")
-    #perguntando se para atender o próximo cliente.
-    prosseguir=int(input("prosseguir com o próximo cliente? sim(1) não(0) "))
+def rotina_cliente():
+    global conta_cadastro
+    #contar quantos clientes foram atendidos
+    cont_clientes=0
+    #verificar se é para o programa ainde ser rodado
+    prosseguir=1
+    while prosseguir:
+        cont_clientes+=1
+        #criar variavel de verificação de erro
+        erro=1
+        #criar ciclo while para a escolha do cliente poder ser refeita caso a entrada seja considerada invalida
+        while erro==1:
+            #perguntar se o cliente quer abrir, verificar uma conta ou sair do programa (0 para verificar uma conta) (1 para sair) (2 para abrir uma conta)
+            escolha_cli=int(input("esolha se você vai querer alterar uma conta(0), sair do programa(1) ou criar uma nova conta(2) digitando um destes números: "))
+            #verificar se o usuário digitou 2 para criar uma conta em um if
+            if escolha_cli==2:
+                #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
+                erro=0
+                #caso ele tenha decidido criar uma conta rodar o programa de abrimento de contas
+                #criar v para verificar o sucesso do while loop
+                v=0
+                #entrar num wihile loop para pedir os seis digitos para o usuário 
+                while not v:
+                    #pedir para o usuário abrir uma conta com 6 digitos
+                    v=cria_cont(int(input("escolha o número da nova conta que esteja entre 100000 e 999999: ")), int(input("caso querira fazer deposito na nova conta digite o valor se não você pode só digitar 0: ")))
+            #verificar se o usuário digitou 0 para alterar uma conta em um elif
+            elif escolha_cli==0:
+                #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
+                erro=0
+                #perguntar o número da conta do cliente
+                cont_cli_atual=int(input("digite o número da sua conta: "))
+                #mostrar o saldo da conta do cliente e perguntar sobre alterações usando a função altera_cont
+                altera_cont(cont_cli_atual)
+                #perguntar se o cliente quer realizar um deposito a retirara parate do dinheiro
+                print("está ferramenta ainda está em desenvolvimento.")    
+            #verificar se o usuário decidio fechar o programa com um elif
+            elif escolha_cli==1:
+                #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
+                erro=0
+                #caso ele tenha decidido sair mostra uma mensagem de agradecimento
+                print("Obrigado pela a sua paciencia. Fim do programa.")    
+            #caso nenhuma das alternativas anteriores ter sido comprida dar uma mensagem de erro e repetir o programa
+            else:
+                #exibir mensagem de erro
+                print("nenhuma escolha reconhecida tente novamente.")
+        #perguntando se para atender o próximo cliente.
+        prosseguir=int(input("prosseguir com o próximo cliente? sim(1) não(0): "))
+conta_cadastro=[[0,0]]
+rotina_cliente()
 print(conta_cadastro)
