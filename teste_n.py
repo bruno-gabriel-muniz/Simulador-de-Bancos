@@ -1,4 +1,17 @@
-#criar função verificadora de números disponiveis
+#criando uma função que verifica o saldo total do banco.
+def ver_saldo_banco():
+    #falando que a lista contacadastro é global
+    global conta_cadastro
+    #cauculando o saldo do banco
+    #criando uma variável para conter o valor da soma
+    soma_banco=0
+    #criando um range para percorre todos os índices das contas
+    for i in range(len(conta_cadastro)):
+        #entrado na conta i e somando o valor do salado a variavel que vai dizer quanto dinheiro o banco tem 
+        soma_banco+=conta_cadastro[i][1]
+    #mostrando o saldo do banco
+    print("o saldo do banco atualmente é: %.2f"%soma_banco)
+#criar função verificadora de números disponiveis e depositos inicias na criação de uma conta
 def cria_cont(num,deposito=0):
     #chamar a lista como um valor global
     global conta_cadastro
@@ -25,11 +38,12 @@ def cria_cont(num,deposito=0):
             return erro 
         #caso a conta não esteja disponivel
         else:
-            print("conta já existente tente novamente.")
+            print("conta já existente, tente novamente, O saque também não foi aceito.")
             return erro
     #caso não
     else:
-        #retornar um valor de erro
+        #retornar um valor de erro e uma mensagem explicando a situação para o usuário
+        print("o número não está entre: 100000 e 999999")
         return erro 
 #criar uma função de modificação de contas com o argumento sendo o número da conta
 def altera_cont(num):
@@ -103,7 +117,11 @@ def rotina_cliente():
         #criar ciclo while para a escolha do cliente poder ser refeita caso a entrada seja considerada invalida
         while erro==1:
             #perguntar se o cliente quer abrir, verificar uma conta ou sair do programa (0 para verificar uma conta) (1 para sair) (2 para abrir uma conta)
-            escolha_cli=int(input("esolha se você vai querer alterar uma conta(0), sair do programa(1) ou criar uma nova conta(2) digitando um destes números: "))
+            escolha_cli=int(input('''Esolha se você vai querer:
+Alterar uma conta(0);
+Sair do programa(1); ou 
+Criar uma nova conta(2).
+Para escolher digite um dos número: '''))
             #verificar se o usuário digitou 2 para criar uma conta em um if
             if escolha_cli==2:
                 #verificar que o programa foi rodado para o ciclo while não pedir a escolha do usuário denovo
@@ -140,3 +158,4 @@ def rotina_cliente():
 conta_cadastro=[[0,0]]
 rotina_cliente()
 print(conta_cadastro)
+ver_saldo_banco()
