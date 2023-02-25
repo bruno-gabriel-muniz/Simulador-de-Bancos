@@ -1,5 +1,7 @@
 from graficos import divisoria
 import getpass
+# importando o get pass para pedir as senhas dos usuários
+# e os gráficos do programa
 
 
 def definir_conta_cliente(lista_clientes):
@@ -36,7 +38,7 @@ def definir_conta_cliente(lista_clientes):
     # em caso de um erro
     else:
         print("Por favor tente novamente. Erro não reconhecido.")
-        return definir_conta_cliente()
+        return definir_conta_cliente(lista_clientes)
 
 
 def entra_conta_cliente(lista_clientes):
@@ -74,10 +76,11 @@ def entra_conta_cliente(lista_clientes):
         escolha = input(
             '''para sair digite 1.
 E para continuar tentando digite qualquer coisa: ''')
+        # caso queira
         if escolha == "1":
             # imprimindo uma divisoria e sainda da função
             divisoria()
-            return definir_conta_cliente()
+            return definir_conta_cliente(lista_clientes)
     # caso tenha encontrado a conta vou pedir a senha
     # dando três chaces tentativa para o usuário
     for i in range(3)[2:0:-1]:
@@ -109,7 +112,7 @@ Tentar novamente? (s-sim/n-não) ''' % i).lower()
     divisoria()
     # voltando para o definir conta cliente caso o usuário não tenha
     # consseguido se lembrar da senha
-    return definir_conta_cliente()
+    return definir_conta_cliente(lista_clientes)
 
 
 def cria_conta_cliente(lista_clientes):
@@ -155,15 +158,15 @@ Se não digite qualquer outra coisa: ''')
                 senha_verifica = getpass.getpass(
                     "digite a sua senha novamente: ")
             # verificando se a entrada diz para prosseguir com a criação da
-            #  conta, não prosseguir ou se é valida
+            # conta, não prosseguir ou se é valida
             while True:
                 # pedindo a verificação se o usuário quer continuar com a
                 # criação com os dados mostrado
-                prosseguir = int(input(
+                prosseguir = input(
                     '''A conta_cliente que será criada terá esses dados:
-nome: %s  - senha: %s
-Deseja prosseguir?: 1-sim/0-não''' % (nome, senha)))
-                if prosseguir == 1 or prosseguir == 0:
+nome: %s
+Deseja prosseguir?: s-sim/n-não''' % (nome)).lower()
+                if prosseguir == "s" or prosseguir == "n":
                     break
                 # explicando que a entrada não foi
                 # reconhecida e pedindo ela novamente
@@ -188,4 +191,4 @@ Deseja prosseguir?: 1-sim/0-não''' % (nome, senha)))
             print("Conta já exitente. Tente novamente.")
     # caso o cliente não queira prosseguir com a criação da conta voltando
     # para o menu de entrada do sistema
-    return definir_conta_cliente()
+    return definir_conta_cliente(lista_clientes)

@@ -2,10 +2,13 @@ import the_bank_contas_cliente as clientes
 import the_bank_contas_bancarias as contas_bank
 import graficos as g
 # importando o gatpass para utilizalo ao pedir as senhas para os usuários
-# criando uma função que verifica o saldo total do banco.
+# e os outros modulos do programa
 
 
 def ver_saldo_banco():
+    """
+    Esta função vê qual é o total do saldo do banco
+    """
     # falando que a lista contacadastro é global
     global lista_conta_bank
     # cauculando o saldo do banco
@@ -22,6 +25,10 @@ def ver_saldo_banco():
 
 
 def rotina_cliente():
+    """
+    Função que roda todas as outras funções do programa e
+    simula o atendimento ao cliente do banco
+    """
     global lista_conta_bank, lista_clientes
     # contar quantos clientes foram atendidos
     cont_clientes = 0
@@ -91,11 +98,23 @@ Para escolher digite um dos números: '''))
             # perguntando se para atender o próximo cliente.
             prosseguir = int(
                 input("prosseguir com o próximo cliente? sim(1) não(0): "))
+        # imprimindo a divisória para atender o próximo cliente ou encerrar
+        # o programa
         g.divisoria()
 
 
+# Criando a lista que ira conter as contas bancárias e uma sublista que
+# indica a ordem de cada elemento
+# Ps.:Quando fiz isso ainda não tinha estudado sobre dicionários
 lista_conta_bank = [["nome", "número da conta", "saldo da conta", "Senha"]]
+# Criando a lista que ira conter as contas clientes e uma sublista que
+# indica a ordem de cada elemento
+# Ps.:Quando fiz isso ainda não tinha estudado sobre dicionários
 lista_clientes = [["nome", "senha", "contas do cliente"]]
+# rodando o que é, até agora a função principal do projeto
 rotina_cliente()
+# imprindo a listas para verificar se houve algum erro
+# na execução do programa
 print(lista_conta_bank, "\n", lista_clientes)
+# testando a função que verificar o saldo do banco
 ver_saldo_banco()
