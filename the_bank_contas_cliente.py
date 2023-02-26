@@ -13,8 +13,8 @@ def definir_conta_cliente(lista_clientes):
     # entrando em um whlie loop para garantir que a entrada seja válida
     while True:
         # perguntando se o usuário quer cria, sair ou entrar em uma conta
-        escolha = input(
-            '''Você deseja criar uma conta ou entrar em uma já existente?
+        escolha = input('''
+Você deseja criar uma conta cadastral ou entrar em uma já existente?
 (entrar=e/criar=c): ''').lower()
         # verificando se a entrada é válida
         if escolha == "e" or escolha == "c":
@@ -22,7 +22,7 @@ def definir_conta_cliente(lista_clientes):
             # de erro atoa e continuar o programa
             break
         # caso não mostrando a mensagem de erro
-        print("entrada não reconhecida, tente novamente.")
+        print("\nEntrada não reconhecida, tente novamente.")
     # verificando se a escolha foi criar uma conta
     if escolha == "c":
         # imprimindo um divisoria para facilitar a visualização
@@ -37,7 +37,7 @@ def definir_conta_cliente(lista_clientes):
         return entra_conta_cliente(lista_clientes)
     # em caso de um erro
     else:
-        print("Por favor tente novamente. Erro não reconhecido.")
+        print("\nPor favor tente novamente. Erro não reconhecido.")
         return definir_conta_cliente(lista_clientes)
 
 
@@ -49,7 +49,7 @@ def entra_conta_cliente(lista_clientes):
     # pedir a entrada do usuário denovo caso ela não exista
     while True:
         # pedindo para o cliente informar o nome da conta que ele quer entrar
-        nome = input("Digite o nome da sua conta: ")
+        nome = input("\nDigite o nome da sua conta: ")
         # percorrendos todas as contas para encontrar a que
         # o cliente deseja, pois a conta vai ser uma sub
         # lista e por isso o método index não funcionaria
@@ -71,10 +71,10 @@ def entra_conta_cliente(lista_clientes):
             break
         # caso o programa não tenha encontrado a conta
         # ele estará avisando o cliente
-        print("Conta não encontrada.")
+        print("\nConta não encontrada.")
         # perguntando se o usuário quer tentar novamente
         escolha = input(
-            '''para sair digite 1.
+            '''\nPara sair digite 1.
 E para continuar tentando digite qualquer coisa: ''')
         # caso queira
         if escolha == "1":
@@ -86,10 +86,10 @@ E para continuar tentando digite qualquer coisa: ''')
     for i in range(3)[2:0:-1]:
         # pedindo a senha para o usuário e verificando se ela
         # bate com a da lista da conta
-        senha = getpass.getpass("Digite a sua senha: ")
+        senha = getpass.getpass("\nDigite a sua senha: ")
         if senha == conta_cliente[1]:
             # se sim reconhecendo a senha
-            print("Senha reconhecida. Entrando na conta...")
+            print("\nSenha reconhecida. Entrando na conta...")
             divisoria()
             return conta_cliente, senha
         # fazendo a verificação erros enquanto a entrada do usuário
@@ -97,14 +97,14 @@ E para continuar tentando digite qualquer coisa: ''')
             # perguntando se o usuário quer tentar mais uma vez e exibino
             # quantas chances ele tem
             escolha = input(
-                '''senha não reconhecida. (Você tem mais %i chances)
+                '''\nSenha não reconhecida. (Você tem mais %i chances)
 Tentar novamente? (s-sim/n-não) ''' % i).lower()
             # verificando se a escolha é válida
             if escolha == "s" or escolha == "n":
                 # se sim parando o while loop de veridicaçção de erros
                 break
             # caso não explicando a cituação para o cliente
-            print("Entrada não reconhecida, tente novamente: ")
+            print("\nEntrada não reconhecida, tente novamente: ")
         # verificando se a escolha do cliente foi não continuar tentano
         if escolha == "n":
             # se sim parando o for loop e acabando com a função
@@ -116,22 +116,16 @@ Tentar novamente? (s-sim/n-não) ''' % i).lower()
 
 
 def cria_conta_cliente(lista_clientes):
-    """Esta função cria a conta de um clinte (ou seja uma conta_cliente: não é
+    """
+    Esta função cria a conta de um clinte (ou seja uma conta_cliente: não é
     uma conta que possui salado. Mas sim que possui os números das contas que o
-     cliente tem) pedindo as variáveis para o usuário sozinha."""
-    # pedindo os dados para o usuário e verificando
-    # se é para continuar ou reiniciar a operção
+    cliente tem) pedindo as variáveis para o usuário sozinha.
+    """
+    # While loop que ira recomeçar a criação das contas em caso de erros
     while True:
-        # verificando se o usuário desistiu de fazer uma conta_cliente
-        sair = input(
-            '''caso queira cancelar a criação da nova conta digite 1.
-Se não digite qualquer outra coisa: ''')
-        if sair == "1":
-            # saindo se este for o caso
-            break
         # se não prosseguindo com o protocolo
         # pedindo o nome
-        nome = input("digite o nome do possuidor da conta: ")
+        nome = input("\nDigite o nome do possuidor da conta: ")
         # criando uma variavel para saber se a conta já existe ou não
         verifica = 0
         # passando por cada nome de clientes do banco de dados
@@ -146,37 +140,38 @@ Se não digite qualquer outra coisa: ''')
         # verificando que a conta não existe ainda
         if not verifica:
             # pedindo a senha da conta
-            senha = getpass.getpass("digite a sua senha: ")
+            senha = getpass.getpass("\nDigite a sua senha: ")
             # verificando a senha para garantir que ela estaja certa
-            senha_verifica = getpass.getpass("digite a sua senha novamente: ")
+            senha_verifica = getpass.getpass("Digite a sua senha novamente: ")
             # verificando se as duas senhas são iguais
             while senha_verifica != senha:
                 # se não são pedindo os dados de novo e explicando a
                 # situação para o cliente
-                print("As duas senhas não batem tente novamente")
-                senha = getpass.getpass("digite a sua senha: ")
+                print("\nAs duas senhas não batem tente novamente")
+                senha = getpass.getpass("\nDigite a sua senha: ")
                 senha_verifica = getpass.getpass(
-                    "digite a sua senha novamente: ")
+                    "Digite a sua senha novamente: ")
             # verificando se a entrada diz para prosseguir com a criação da
             # conta, não prosseguir ou se é valida
             while True:
                 # pedindo a verificação se o usuário quer continuar com a
                 # criação com os dados mostrado
                 prosseguir = input(
-                    '''A conta_cliente que será criada terá esses dados:
-nome: %s
-Deseja prosseguir?: s-sim/n-não''' % (nome)).lower()
+                    '''
+A conta_cliente que será criada terá esse nome: %s
+Deseja prosseguir?: s-sim/n-não
+''' % (nome,)).lower()
                 if prosseguir == "s" or prosseguir == "n":
                     break
                 # explicando que a entrada não foi
                 # reconhecida e pedindo ela novamente
-                print("Entrada não recoinhecida. Tente novamente.")
+                print("\nEntrada não recoinhecida. Tente novamente.")
             # fazendo a criação da conta caso o
             # usuário tenha decidido prosseguir
             if prosseguir:
                 # adcionando a conta na lista dos cadastro
-                lista_clientes.append([nome, senha])
-                print("Entrando na nova conta... ")
+                lista_clientes.append([nome, senha, []])
+                print("\nEntrando na nova conta... ")
                 # imprimindo a divisoria para melhorara a
                 # visualisação do aplicativo
                 divisoria()
@@ -184,11 +179,19 @@ Deseja prosseguir?: s-sim/n-não''' % (nome)).lower()
                 return nome, senha
             # caso não seja para criar a conta perguntar os dados de novo
             else:
-                print("os dados serão perguntados novamente.")
+                print("\nOs dados serão perguntados novamente.")
                 divisoria()
         # avisando que a cointa já existe e perguntando novamente
         else:
-            print("Conta já exitente. Tente novamente.")
+            print("\nConta já exitente.")
+        # verificando se o usuário desistiu de fazer uma conta_cliente
+        continuar = input(
+            '''\nDeseja tentar novamente? s-sim/n-não\n''')
+        # caso tenha
+        if continuar == "n":
+            # saindo
+            break
+
     # caso o cliente não queira prosseguir com a criação da conta voltando
     # para o menu de entrada do sistema
     return definir_conta_cliente(lista_clientes)

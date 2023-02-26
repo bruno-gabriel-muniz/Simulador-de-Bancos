@@ -6,7 +6,7 @@ from graficos import divisoria
 
 def altera_cont_bank(lista_conta_bank, usu, num, senha):
     """
-    Função que modifica as contas existentes do usuário
+    Função que modifica as contas existentes do usuário.
     """
     # variavel para pasar pelos indices das listas
     cont = 0
@@ -56,8 +56,8 @@ def altera_cont_bank(lista_conta_bank, usu, num, senha):
                                 # caso esteja mostrar a conta na tela do
                                 # usuário e perguntar se ele deseja sacar
                                 # ou fazer um deposito na conta ou sair
-                                input(
-                                    '''para sacar digite 1;
+                                input('''
+Para sacar digite 1;
 para depositar digite 2; e
 para sair digite 0: '''))
                             # criando uma divisória para ficar
@@ -73,16 +73,13 @@ para sair digite 0: '''))
                                 while True:
                                     # perguntar o valor do deposito
                                     saque = float(
-                                        input("digite o valor do saque: "))
+                                        input("\nDigite o valor do saque: "))
                                     # verificar se é positivo para que não
                                     #  ocorram erros
                                     if saque > 0:
                                         # caso seja realizar as operações
                                         lista_conta_bank[cont][2] -= saque
                                         break
-                                # criando uma divisória para ficar
-                                # mais fácil a visualização
-                                divisoria()
                             # caso queira depositar elif
                             elif escolha == 2:
                                 # criar variavel da verificação
@@ -91,16 +88,14 @@ para sair digite 0: '''))
                                 while not verifica:
                                     # perguntar o valor do deposito
                                     deposito = float(
-                                        input("digite o valor do deposito: "))
+                                        input("""
+Digite o valor do deposito: """))
                                     # verificar se é positivo
                                     if deposito > 0:
                                         # caso seja realizar as operações
                                         # e delvolver sem erro
                                         verifica = 1
                                         lista_conta_bank[cont][2] += deposito
-                                # criando uma divisória para ficar
-                                # mais fácil a visualização
-                                divisoria()
                             # caso queira sair da conta elif
                             elif escolha == 0:
                                 # sair true
@@ -108,11 +103,8 @@ para sair digite 0: '''))
                             # caso tenha ocorrido um erro else
                             else:
                                 # printar a mensagem de erro
-                                print(
-                                    "Entrada não reconhecida tente novamente:")
-                            # crinado uma divisoria para ficar
-                            # mais fácil de se visualizar
-                            divisoria()
+                                print("""
+Entrada não reconhecida tente novamente:""")
                         # parando o for loop da senha para o
                         # usuário voltar ao meno principal
                         break
@@ -124,8 +116,8 @@ para sair digite 0: '''))
                             # mostrando o atual estado sobre a senha e
                             # perguntando se é para o programa
                             # continuar tentando
-                            escolha = input(
-                                '''A senha está incorreta.
+                            escolha = input('''
+A senha está incorreta.
 Você tem mais %i chance(s).
 Deseja continuar tentando? (s-sim/n-não): ''' % i).lower()
                             # verificando se a entrada é valida
@@ -134,7 +126,7 @@ Deseja continuar tentando? (s-sim/n-não): ''' % i).lower()
                                 break
                             # caso não seja informando ao usuário que a
                             # entrada não foi reconhecida
-                            print("Entrada não reconhecida.")
+                            print("\nEntrada não reconhecida.")
                         # verificando se o usuário quer continuar tentando
                         if escolha == "n":
                             # caso não saindo do for loop
@@ -146,12 +138,12 @@ Deseja continuar tentando? (s-sim/n-não): ''' % i).lower()
                 # erificando se o usuário acertou a senha
                 if not veri_senha:
                     # caso não tenha exibindo uma mensagem explicando
-                    print("Senha não reconhecida.")
+                    print("\nSenha não reconhecida.")
                     # e voltando para o menu principal
-                    print("Voltando para o meno principal...")
+                    print("\nVoltando para o meno principal...")
             # informando que a conta não está no nome do usuário
             else:
-                print("A conta está no nome de outra pessoa.")
+                print("\nA conta está no nome de outra pessoa.")
                 break
         # caso não seja a conta adicionando a variavel contadora para o
         # programa ir para a próxima conta
@@ -159,26 +151,34 @@ Deseja continuar tentando? (s-sim/n-não): ''' % i).lower()
             cont += 1
     # mostrando a mensagem de erro caso a conta não tenha sido encontrada-
     if veri == 0:
-        print("erro conta não encontrada")
+        print("\nErro conta não encontrada")
         # mostra mensagem de erro e sair do programa
 
 
-def cria_cont_bank(lista_conta_bank, nome_usu, senha):
-    # pedindo o número da nova conta
-    num = int(input(
-        '''Escolha o número da nova conta que esteja entre 1 e 999999, ou seja,
-tenha 6 digitos: '''))
+def cria_cont_bank(lista_conta_bank, nome_usu, senha, num_anterior,
+                   lista_clientes):
+    """
+    função que cria uma conta bancária e pede:
+    lista que contem todas as contas bancárias
+    o nome do usuário
+    a senha dele
+    e o ultimo número dado a uma conta
+    """
+    # consultando o ultimo número da conta usado e
+    # adicionando 1 para criar a nova conta
+    num = num_anterior + 1
     # entrando em um while que vai
     # fazer o tratamento de erro enquanto
     # o deposito
     while True:
-        # perguntando se ira ter um deposito inicial
+        # perguntando se irá ter um deposito inicial
         dep_init_v = int(
-            input("deseja fazer um deposito inicial na conta?: 1-sim/0-não "))
+            input(
+                "\nDeseja fazer um deposito inicial na conta?: 1-sim/0-não "))
         # se tiver:
         if dep_init_v:
             # pedindo o valor do deposito para o usuário
-            deposito = float(input("digite o valor do deposito: "))
+            deposito = float(input("\nDigite o valor do deposito: "))
             # saindo do while loop'do tartamento de erros
             break
         # se não tiver
@@ -189,67 +189,65 @@ tenha 6 digitos: '''))
         else:
             # falando que a entrada não foi reconhecida e pedidndo para o
             # usuário tentar novamente
-            print("Entrada não reconhecida. Tente novamente")
-    # verificar se o número de entrada do úsuario tem 6 digitos
-    if 100000 <= num <= 999999:
-        # criando uma variavel para ver se a conta está disponivel
-        veri = 0
-        # criando uma lista auxiliar para usar no for loop de verificação
-        lista_conta_bank_a = lista_conta_bank.copy()
-        # criando um for loop para percorre todos os
-        # valores da lista de cadastro
-        for t in range(len(lista_conta_bank_a)):
-            # verificar se o número não bate com os números já cadastrados
-            if lista_conta_bank[t][1] == num:
-                # se sim verificando que uma conta já existe
-                veri = 1
-        # caso a conta esteja disponivel
-        if veri == 0:
-            for t in range(3)[2:0:-1]:
-                senha_verifica = getpass.getpass(
-                    "Digite a sua senha para finalizar o processo: ")
-                if senha_verifica == senha:
-                    # adicionar o valor na lista e
-                    # perguntar o valor do deposito
-                    lista_conta_bank.append([nome_usu, num, deposito, senha])
-                    # devolver o valor de aceito
-                    return
-                # fazendo o tratamento de erros enquanto a escolha do
-                # usuário de continuar tentando acertar a senha ou não
-                while True:
-                    # informando o usuário
-                    escolha = input('''
+            print("\nEntrada não reconhecida. Tente novamente")
+    # mostrando os dados que a conta vai ter para o usuário
+    # poder acessar ela depois
+    print("\nA conta terá estes dados:")
+    # criando a lista com as legendas dos dados
+    metadados_da_conta = ["Nome do propietário", "Número da conta", "Saldo"]
+    # criando a lista que vai mostrar os dados
+    dados_da_conta = [nome_usu, num, deposito]
+    # criando uma variavel contadora para passar pelos dados da conta
+    cont = 0
+    # entrando no for loop que vai imprimir os dados e as legendas
+    for mostra_dado in metadados_da_conta:
+        # imprimindo
+        print("%5s: %5s" % (mostra_dado, dados_da_conta[cont]))
+        # adicionando a variavel contadora para mostrar o próximo dado
+        cont += 1
+    # passando por um for loop que vai pedir a senha para o usuário
+    # que caso erre terá duas chances
+    for t in range(3)[2:0:-1]:
+        # pedindo a senha para o usuário
+        senha_verifica = getpass.getpass(
+            "\nDigite a sua senha para finalizar o processo: ")
+        # verificando se a senha está correta
+        if senha_verifica == senha:
+            # criando uma variável que vai verificar se a conta
+            # já foi encontrada
+            veri = 0
+            # entrando em um while loop que vai passar por todas as contas
+            # até que encotre a conta certa
+            cont = 0
+            while cont < len(lista_clientes) and veri == 0:
+                # verificar se o nome da conta está correto
+                if lista_clientes[cont][0] == nome_usu:
+                    # verificando que a conta foi encontrada
+                    veri = 1
+                    # adicionando o número da nova conta bancária do cliente
+                    lista_clientes[cont][2].append(num)
+                cont += 1
+            # adicionar o valor na lista e
+            # perguntar o valor do deposito
+            lista_conta_bank.append([nome_usu, num, deposito, senha])
+            # devolver o valor de aceito
+            return
+        # fazendo o tratamento de erros enquanto a escolha do
+        # usuário de continuar tentando acertar a senha ou não
+        while True:
+            # informando o usuário
+            escolha = input('''
 A senha não foi reconhecida.
 ---
 Você só tem mais %i chance(s).
 Você deseja continuar tentando? (s-sim/n-não): ''' % t)
-                    # verificando se a escolha esta entre as aceitas
-                    if escolha == "s" or escolha == "n":
-                        break
-                    # mostrando para o usuário que a entrada não foi
-                    # reconhecida
-                    print("Entrada não reconhecida. Tente novamente")
-                # verificando se o usuáriop decidio parar de tentar
-                if escolha == "n":
-                    # se sim saindo do for loop de verificação de senha
-                    break
-        # caso a conta não esteja disponivel
-        else:
-            # imprimindo mensagem explicativa
-            print(
-                '''este número de conta já existente. Tente novamente
-Ps.:O saque também não foi aceito.''')
-            # retornando a função para o clinete tentar criar a conta de novo
-            return cria_cont_bank(lista_conta_bank, nome_usu, senha)
-        # informando o usuário que está voltando para o meno principal
-        print("voltando para o menu principal...")
-        # imprimindo uma divisáoria
-        divisoria()
-        # retornando nada pois a alterações já foram feitas
-        return
-    # caso não
-    else:
-        # retornar um valor de erro e uma mensagem
-        # explicando a situação para o usuário
-        print("o número não está entre 100000 e 999999")
-        return cria_cont_bank(lista_conta_bank, nome_usu, senha)
+            # verificando se a escolha esta entre as aceitas
+            if escolha == "s" or escolha == "n":
+                break
+            # mostrando para o usuário que a entrada não foi
+            # reconhecida
+            print("\nEntrada não reconhecida. Tente novamente")
+        # verificando se o usuáriop decidio parar de tentar
+        if escolha == "n":
+            # se sim saindo do for loop de verificação de senha
+            break
