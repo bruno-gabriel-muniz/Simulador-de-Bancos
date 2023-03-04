@@ -74,10 +74,10 @@ def entra_conta_cliente(lista_clientes):
         print("\nConta não encontrada.")
         # perguntando se o usuário quer tentar novamente
         escolha = input(
-            '''\nPara sair digite 1.
-E para continuar tentando digite qualquer coisa: ''')
+            '''\nPara sair digite s.
+E para continuar tentando digite qualquer coisa: ''').lower()
         # caso queira
-        if escolha == "1":
+        if escolha == "s":
             # imprimindo uma divisoria e sainda da função
             divisoria()
             return definir_conta_cliente(lista_clientes)

@@ -52,19 +52,19 @@ def altera_cont_bank(lista_conta_bank, usu, num, senha):
                             print("%s %i" % (
                                 nome_item_exibido[i+1],
                                 lista_conta_bank[cont][1+i]), end="")
-                            escolha = int(
-                                # caso esteja mostrar a conta na tela do
-                                # usuário e perguntar se ele deseja sacar
-                                # ou fazer um deposito na conta ou sair
-                                input('''
-Para sacar digite 1;
-para depositar digite 2; e
-para sair digite 0: '''))
+                            # mostrando a conta na tela do
+                            # usuário e perguntar se ele deseja sacar
+                            # ou fazer um deposito na conta ou sair
+                            escolha = input('''
+Para sacar digite: s;
+para depositar digite: d; e
+para sair digite: sair
+''').lower()
                             # criando uma divisória para ficar
                             #  mais fácil a visualização
                             divisoria()
-                            # caso queira sacar if
-                            if escolha == 1:
+                            # caso queira sacar
+                            if escolha == "s":
                                 # criar variavel da
                                 # verificação do valor do saque
                                 verifica = 0
@@ -81,7 +81,7 @@ para sair digite 0: '''))
                                         lista_conta_bank[cont][2] -= saque
                                         break
                             # caso queira depositar elif
-                            elif escolha == 2:
+                            elif escolha == "d":
                                 # criar variavel da verificação
                                 verifica = 0
                                 # criar um for loop em caso de erros
@@ -97,8 +97,8 @@ Digite o valor do deposito: """))
                                         verifica = 1
                                         lista_conta_bank[cont][2] += deposito
                             # caso queira sair da conta elif
-                            elif escolha == 0:
-                                # sair true
+                            elif escolha == "sair":
+                                # saindo
                                 break
                             # caso tenha ocorrido um erro else
                             else:
@@ -166,23 +166,24 @@ def cria_cont_bank(lista_conta_bank, nome_usu, senha, num_anterior,
     """
     # consultando o ultimo número da conta usado e
     # adicionando 1 para criar a nova conta
-    num = num_anterior + 1
+    num_anterior += 1
     # entrando em um while que vai
     # fazer o tratamento de erro enquanto
     # o deposito
     while True:
         # perguntando se irá ter um deposito inicial
-        dep_init_v = int(
+        dep_init_v = (
             input(
-                "\nDeseja fazer um deposito inicial na conta?: 1-sim/0-não "))
+                "\nDeseja fazer um deposito inicial na conta?: s-sim/n-não ")
+            .lower())
         # se tiver:
-        if dep_init_v:
+        if dep_init_v == "s":
             # pedindo o valor do deposito para o usuário
             deposito = float(input("\nDigite o valor do deposito: "))
             # saindo do while loop'do tartamento de erros
             break
         # se não tiver
-        elif dep_init_v == 0:
+        elif dep_init_v == "n":
             # colocando o valor do saldo como 0 inicialmente
             deposito = 0.0
             break
@@ -196,7 +197,7 @@ def cria_cont_bank(lista_conta_bank, nome_usu, senha, num_anterior,
     # criando a lista com as legendas dos dados
     metadados_da_conta = ["Nome do propietário", "Número da conta", "Saldo"]
     # criando a lista que vai mostrar os dados
-    dados_da_conta = [nome_usu, num, deposito]
+    dados_da_conta = [nome_usu, num_anterior, deposito]
     # criando uma variavel contadora para passar pelos dados da conta
     cont = 0
     # entrando no for loop que vai imprimir os dados e as legendas
@@ -225,20 +226,20 @@ def cria_cont_bank(lista_conta_bank, nome_usu, senha, num_anterior,
                     # verificando que a conta foi encontrada
                     veri = 1
                     # adicionando o número da nova conta bancária do cliente
-                    lista_clientes[cont][2].append(num)
+                    lista_clientes[cont][2].append(num_anterior)
                 cont += 1
             # adicionar o valor na lista e
             # perguntar o valor do deposito
-            lista_conta_bank.append([nome_usu, num, deposito, senha])
+            lista_conta_bank.append([nome_usu, num_anterior, deposito, senha])
             # devolver o valor de aceito
-            return
+            return num_anterior
         # fazendo o tratamento de erros enquanto a escolha do
         # usuário de continuar tentando acertar a senha ou não
         while True:
             # informando o usuário
             escolha = input('''
 A senha não foi reconhecida.
----
+────────────────────────────
 Você só tem mais %i chance(s).
 Você deseja continuar tentando? (s-sim/n-não): ''' % t)
             # verificando se a escolha esta entre as aceitas

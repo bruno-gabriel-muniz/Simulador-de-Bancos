@@ -33,8 +33,8 @@ def rotina_cliente():
     # contar quantos clientes foram atendidos
     cont_clientes = 0
     # verificar se é para o programa ainde ser rodado
-    prosseguir = 1
-    while prosseguir:
+    prosseguir = "s"
+    while prosseguir == "s":
         # entrando na conta do cliente que será atendido
         usu, usu_senha = clientes.definir_conta_cliente(lista_clientes)
         # atualizando o número de clientes atendidos
@@ -45,26 +45,26 @@ def rotina_cliente():
             # perguntar se o cliente quer abrir, verificar uma conta ou sair
             # do programa (0 para verificar uma conta) (1 para sair)
             # (2 para abrir uma conta)
-            escolha_cli = int(input('''
+            escolha_cli = input('''
 Escolha se você vai querer:
-Alterar uma conta(0);
-Sair do programa(1); ou
-Criar uma nova conta(2).
-Para escolher digite um dos números: '''))
+Alterar uma conta ─> a;
+Sair do programa ─> s; ou
+Criar uma nova conta ─> c.
+Para escolher digite uma das letras: ''').lower()
             # verificar se o usuário digitou 2 para criar uma conta em um if
-            if escolha_cli == 2:
+            if escolha_cli == "c":
                 # criando divisoria para ficar mais fácil
                 # de visualizar o programa
                 g.divisoria()
                 # caso ele tenha decidido criar uma conta rodar o programa
                 # de abrimento de contas
                 # pedir para o usuário abrir uma conta com 6 digitos
-                contas_bank.cria_cont_bank(
+                num_anterior = contas_bank.cria_cont_bank(
                     lista_conta_bank, usu, usu_senha, num_anterior,
                     lista_clientes)
             # verificar se o usuário digitou 0 para
             # alterar uma conta em um elif
-            elif escolha_cli == 0:
+            elif escolha_cli == "a":
                 # criando uma divisória para ficar mais fácil a visualização
                 g.divisoria()
                 # perguntar o número da conta do cliente
@@ -74,7 +74,7 @@ Para escolher digite um dos números: '''))
                 contas_bank.altera_cont_bank(
                     lista_conta_bank, usu, cont_cli_atual, usu_senha)
             # verificar se o usuário decidio fechar o programa com um elif
-            elif escolha_cli == 1:
+            elif escolha_cli == "s":
                 # criando uma divisória para ficar mais fácil a visualização
                 g.divisoria()
                 # caso ele tenha decidido sair
@@ -91,15 +91,16 @@ Para escolher digite um dos números: '''))
             g.divisoria()
         # pedindo a entrada para o administrador sobre
         # o atendimento do próximo cliente
-        prosseguir = int(
-            input("\nProsseguir com o próximo cliente? sim(1) não(0): "))
+        prosseguir = (
+            input("\nProsseguir com o próximo cliente? sim-s/não-n: ").lower())
         # fazendo o tratamento de erro para caso ocorra um erro de digitação
-        while prosseguir != 0 and prosseguir != 1:
+        while prosseguir != "s" and prosseguir != "n":
             # avisando que a entrada não foi reconhecida
             print("\nEntrada não reconhacida tente novamente: ")
             # perguntando se para atender o próximo cliente.
-            prosseguir = int(
-                input("\nProsseguir com o próximo cliente? sim(1) não(0): "))
+            prosseguir = (
+                input("\nProsseguir com o próximo cliente? sim-s/não-n: ")
+                .lower())
         # imprimindo a divisória para atender o próximo cliente ou encerrar
         # o programa
         g.divisoria()
